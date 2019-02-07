@@ -36,12 +36,19 @@ public class StudentController {
 	  return studrepo.save(StudM);
   }
   
- /* @PutMapping("/upStud/{id}")
+  @PutMapping("/upStud/{id}")
+
   public StudentModel upStud(@PathVariable(value="id")long id,@RequestBody StudentModel studM) {
-	  studrepo.findById(id);
-	  return studrepo.save(studM);
+	StudentModel sm = new StudentModel();
+	  sm = studrepo.findById((id)).orElse(new StudentModel());
+	  sm.setName(studM.getName());
+	  return studrepo.save(sm);
   }
-  */
+  
+  @GetMapping("/stud/{id}")
+  public StudentModel getStudone(@PathVariable(value="id")long id) {
+	  return studrepo.findById(id).orElse(new StudentModel());
+  }
   
   @DeleteMapping("/delStud")
   public void delStud(@Valid @RequestBody StudentModel StudMn) {
